@@ -3,10 +3,12 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication #gives u a random string that acts like a password
-from profiles_api import permissions
+from rest_framework import filters
+
 
 from profiles_api import serializers
 from profiles_api import models
+from profiles_api import permissions
 
 
 
@@ -102,4 +104,5 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     # TokenAuthentication is type of authentications
     permission_classes = (permissions.UpdateOwnProfile,)
-
+    filter_backends = (filters.SearchFilter,)
+    search_fields =('name','email',)
